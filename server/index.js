@@ -13,6 +13,7 @@ const helmet = require('helmet');
 
 const app = express();
 app.use(helmet());
+app.use(helmet());
 const port = 3000;
 
 const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:8080,http://127.0.0.1:8080')
