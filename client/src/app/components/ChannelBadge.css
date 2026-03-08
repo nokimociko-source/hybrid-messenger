@@ -1,0 +1,36 @@
+/* Styles for ChannelBadge component */
+
+.channel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: var(--bg-surface-low, rgba(0, 0, 0, 0.05));
+  color: var(--tc-surface-normal, #666);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  transition: background 0.2s;
+}
+
+.channel-badge__text {
+  white-space: nowrap;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+  .channel-badge {
+    font-size: 12px;
+    padding: 3px 6px;
+    gap: 4px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .channel-badge {
+    background: var(--bg-surface-low, rgba(255, 255, 255, 0.1));
+    color: var(--tc-surface-normal, #aaa);
+  }
+}

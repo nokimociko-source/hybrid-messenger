@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+  <title>Catlover</title>
+  <meta name="name" content="Catlover" />
+  <meta name="author" content="Demonestokom" />
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+
+    body,
+    html,
+    #root {
+      background-color: #0d0d0d !important;
+      color: #e0e0e0 !important;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: fixed;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #root {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Мобильная адаптация */
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+        /* Предотвращает автозум на iOS */
+      }
+
+      input,
+      textarea,
+      select {
+        font-size: 16px !important;
+        /* Предотвращает автозум при фокусе */
+      }
+
+      /* Убираем отступы для полноэкранного режима */
+      body {
+        padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      }
+    }
+
+    /* Улучшенная прокрутка для мобильных */
+    .scrollable {
+      -webkit-overflow-scrolling: touch;
+      overflow-y: auto;
+    }
+
+    /* Отключаем выделение текста при долгом нажатии */
+    .no-select {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  </style>
+  <meta name="description"
+    content="Catlover Messenger — безопасный мессенджер с поддержкой каналов, звонков и шифрования." />
+  <meta name="keywords" content="catlover, messenger, чат, каналы, звонки, шифрование" />
+
+  <meta property="og:title" content="Catlover Messenger" />
+  <meta property="og:url" content="/" />
+  <meta property="og:image" content="./public/favicon.png" />
+  <meta property="og:description"
+    content="Catlover Messenger — безопасный мессенджер с поддержкой каналов, звонков и шифрования." />
+  <meta name="theme-color" content="#000000" />
+
+  <link id="favicon" rel="shortcut icon" href="./public/favicon.png" type="image/png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./public/favicon.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./public/favicon.png" />
+
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="application-name" content="Catlover" />
+  <meta name="apple-mobile-web-app-title" content="Catlover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Дополнительные мета-теги для мобильных устройств -->
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="HandheldFriendly" content="true" />
+
+  <link rel="apple-touch-icon" href="./public/favicon.png" />
+
+  <!-- Google Fonts: Orbitron for Neon/Futuristic look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+
+</head>
+
+<body id="appBody">
+  <script>
+    window.global = window;
+    window.process = { env: {} };
+  </script>
+  <div id="root"></div>
+  <div id="portalContainer"></div>
+  <script type="module" src="./src/index.tsx"></script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+# Зависимости
+node_modules/
+.npm
+dist/
+build/
+.cache/
+
+# Секреты и конфиги
+.env
+.env.*
+!.env.example
+supabase/.temp/
+client/.env
+client/.env.*
+server/.env
+server/.env.*
+
+# Логи и временные файлы
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+.idea/
+.vscode/
+*.tmp
+*.bak
+
+# Тесты
+coverage/
+.nyc_output/

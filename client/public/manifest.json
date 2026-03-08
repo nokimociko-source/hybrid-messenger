@@ -1,0 +1,28 @@
+{
+  "name": "Catlover Messenger",
+  "short_name": "Catlover",
+  "description": "Secure messaging with Matrix protocol",
+  "dir": "auto",
+  "lang": "en-US",
+  "display": "standalone",
+  "orientation": "any",
+  "start_url": "./",
+  "scope": "/",
+  "background_color": "#0d0d0d",
+  "theme_color": "#0d0d0d",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "./public/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./public/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

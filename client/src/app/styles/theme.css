@@ -1,0 +1,79 @@
+/* Dark Theme (Default) */
+:root[data-theme="dark"] {
+  --bg-primary: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  --bg-hover: rgba(0, 242, 255, 0.1);
+  --bg-active: rgba(0, 242, 255, 0.2);
+  
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-tertiary: rgba(255, 255, 255, 0.5);
+  --text-disabled: rgba(255, 255, 255, 0.3);
+  
+  --accent-primary: #00f2ff;
+  --accent-secondary: #a200ff;
+  --accent-hover: rgba(0, 242, 255, 0.8);
+  
+  --border-primary: rgba(0, 242, 255, 0.3);
+  --border-secondary: rgba(255, 255, 255, 0.1);
+  --border-tertiary: rgba(255, 255, 255, 0.05);
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  
+  --message-self: rgba(0, 242, 255, 0.15);
+  --message-other: rgba(255, 255, 255, 0.05);
+  
+  --success: #4caf50;
+  --error: #ff4d4d;
+  --warning: #ff9800;
+  --info: #00f2ff;
+}
+
+/* Light Theme */
+:root[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #e0e0e0;
+  --bg-hover: rgba(0, 150, 200, 0.1);
+  --bg-active: rgba(0, 150, 200, 0.2);
+  
+  --text-primary: #000000;
+  --text-secondary: rgba(0, 0, 0, 0.7);
+  --text-tertiary: rgba(0, 0, 0, 0.5);
+  --text-disabled: rgba(0, 0, 0, 0.3);
+  
+  --accent-primary: #0096c8;
+  --accent-secondary: #7b00c8;
+  --accent-hover: rgba(0, 150, 200, 0.8);
+  
+  --border-primary: rgba(0, 150, 200, 0.3);
+  --border-secondary: rgba(0, 0, 0, 0.1);
+  --border-tertiary: rgba(0, 0, 0, 0.05);
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
+  
+  --message-self: rgba(0, 150, 200, 0.15);
+  --message-other: rgba(0, 0, 0, 0.05);
+  
+  --success: #4caf50;
+  --error: #d32f2f;
+  --warning: #f57c00;
+  --info: #0096c8;
+}
+
+/* Apply theme variables to body */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

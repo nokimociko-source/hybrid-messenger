@@ -1,0 +1,11 @@
+experiment
+dist
+node_modules
+devAssets
+
+.env
+.env.*
+*.log
+
+.DS_Store
+.idea

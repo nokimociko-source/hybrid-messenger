@@ -1,0 +1,187 @@
+/* Styles for ChannelViewStatistics component */
+
+/* View Count Button */
+.view-count-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 12px;
+  background: var(--bg-surface-low, rgba(0, 0, 0, 0.05));
+  color: var(--tc-surface-normal, #666);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.view-count-button:hover {
+  background: var(--bg-surface, rgba(0, 0, 0, 0.1));
+  transform: translateY(-1px);
+}
+
+.view-count-button:active {
+  transform: translateY(0);
+}
+
+.view-count-button:focus-visible {
+  outline: 2px solid var(--accent-color, #0066cc);
+  outline-offset: 2px;
+}
+
+.view-count-button__text {
+  white-space: nowrap;
+}
+
+/* Viewer List Container */
+.viewer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+/* Custom scrollbar for viewer list */
+.viewer-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.viewer-list::-webkit-scrollbar-track {
+  background: var(--bg-surface-low, rgba(0, 0, 0, 0.05));
+  border-radius: 4px;
+}
+
+.viewer-list::-webkit-scrollbar-thumb {
+  background: var(--bg-surface, rgba(0, 0, 0, 0.2));
+  border-radius: 4px;
+}
+
+.viewer-list::-webkit-scrollbar-thumb:hover {
+  background: var(--bg-surface, rgba(0, 0, 0, 0.3));
+}
+
+/* Individual Viewer Item */
+.viewer-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.viewer-item:hover {
+  background: var(--bg-surface-low, rgba(0, 0, 0, 0.03));
+}
+
+/* Viewer Info Container */
+.viewer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0; /* Allow text truncation */
+}
+
+.viewer-name {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.viewer-time {
+  color: var(--tc-surface-low, #999);
+  font-size: 11px;
+}
+
+/* Error State */
+.view-stats-error {
+  color: var(--tc-danger-normal, #d32f2f);
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+  .view-count-button {
+    font-size: 11px;
+    padding: 3px 6px;
+    gap: 3px;
+  }
+
+  .viewer-list {
+    max-height: 300px;
+  }
+
+  .viewer-item {
+    padding: 6px;
+    gap: 10px;
+  }
+
+  .viewer-info {
+    gap: 1px;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .view-count-button {
+    background: var(--bg-surface-low, rgba(255, 255, 255, 0.1));
+    color: var(--tc-surface-normal, #aaa);
+  }
+
+  .view-count-button:hover {
+    background: var(--bg-surface, rgba(255, 255, 255, 0.15));
+  }
+
+  .viewer-item:hover {
+    background: var(--bg-surface-low, rgba(255, 255, 255, 0.05));
+  }
+
+  .viewer-time {
+    color: var(--tc-surface-low, #666);
+  }
+
+  .viewer-list::-webkit-scrollbar-track {
+    background: var(--bg-surface-low, rgba(255, 255, 255, 0.05));
+  }
+
+  .viewer-list::-webkit-scrollbar-thumb {
+    background: var(--bg-surface, rgba(255, 255, 255, 0.2));
+  }
+
+  .viewer-list::-webkit-scrollbar-thumb:hover {
+    background: var(--bg-surface, rgba(255, 255, 255, 0.3));
+  }
+}
+
+/* Accessibility - High Contrast Mode */
+@media (prefers-contrast: high) {
+  .view-count-button {
+    border: 2px solid currentColor;
+  }
+
+  .viewer-item {
+    border: 1px solid var(--bg-surface, rgba(0, 0, 0, 0.2));
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .view-count-button,
+  .viewer-item {
+    transition: none;
+  }
+
+  .view-count-button:hover {
+    transform: none;
+  }
+
+  .view-count-button:active {
+    transform: none;
+  }
+}

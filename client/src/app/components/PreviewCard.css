@@ -1,0 +1,245 @@
+/* Стили для PreviewCard компонента */
+
+.preview-card {
+  background: var(--bg-surface-low);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-normal);
+  transition: all 0.2s;
+  max-width: 500px;
+}
+
+.preview-card:hover {
+  border-color: var(--accent-normal);
+  box-shadow: var(--shadow-low);
+}
+
+.preview-card__content {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.preview-card__content:focus {
+  outline: 2px solid var(--accent-normal);
+  outline-offset: -2px;
+}
+
+.preview-card__image-container {
+  position: relative;
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+
+.preview-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-card__provider-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.preview-card__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.preview-card__site {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.preview-card__favicon {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+.preview-card__site-name {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.preview-card__title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+.preview-card__description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+.preview-card__url {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: auto;
+}
+
+.preview-card__url span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.preview-card__action {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--text-tertiary);
+}
+
+.preview-card__embed-toggle {
+  border-top: 1px solid var(--border-normal);
+  padding: 8px 12px;
+}
+
+.preview-card__embed-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--accent-normal);
+  font-weight: 500;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background 0.2s;
+  width: 100%;
+  justify-content: center;
+}
+
+.preview-card__embed-button:hover {
+  background: var(--bg-surface-hover);
+}
+
+.preview-card__embed {
+  border-top: 1px solid var(--border-normal);
+  padding: 12px;
+  background: var(--bg-surface);
+}
+
+.preview-card__embed iframe {
+  width: 100%;
+  max-width: 100%;
+  border: none;
+  border-radius: 6px;
+}
+
+/* Skeleton loading */
+.preview-card--skeleton {
+  pointer-events: none;
+}
+
+.preview-card--skeleton .preview-card__content {
+  cursor: default;
+}
+
+.preview-card__skeleton-image {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--bg-surface) 0%,
+    var(--bg-surface-hover) 50%,
+    var(--bg-surface) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+.preview-card__skeleton-site,
+.preview-card__skeleton-title,
+.preview-card__skeleton-description,
+.preview-card__skeleton-url {
+  height: 12px;
+  background: linear-gradient(
+    90deg,
+    var(--bg-surface) 0%,
+    var(--bg-surface-hover) 50%,
+    var(--bg-surface) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+.preview-card__skeleton-site {
+  width: 80px;
+}
+
+.preview-card__skeleton-title {
+  width: 100%;
+  height: 16px;
+}
+
+.preview-card__skeleton-description {
+  width: 100%;
+  height: 14px;
+}
+
+.preview-card__skeleton-url {
+  width: 120px;
+  margin-top: auto;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Компактный вид для мобильных */
+@media (max-width: 768px) {
+  .preview-card__content {
+    flex-direction: column;
+  }
+  
+  .preview-card__image-container {
+    width: 100%;
+    height: 180px;
+  }
+}
