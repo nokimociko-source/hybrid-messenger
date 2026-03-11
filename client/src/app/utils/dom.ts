@@ -89,8 +89,33 @@ export const getDataTransferFiles = (dataTransfer: DataTransfer): File[] | undef
 export const renameFile = (file: File, name: string): File =>
   new File([file], name, { type: file.type });
 
+function buildValidatedImageUrl(baseUrl: string): string {
+  try {
+    // Minimal path validation
+    if (baseUrl.includes('/../') || /\/%2e%2e\//i.test(baseUrl)) {
+      throw new Error('Invalid path');
+    }
+    
+    const url = new URL(baseUrl);
+    
+    // Protocol + host checks
+    const allowedDomains = ['example.com']; // add your allowed domains here
+    if (!allowedDomains.includes(url.hostname)) {
+      throw new Error('Invalid host');
+    }
+    if (!['http:', 'https:'].includes(url.protocol)) {
+      throw new Error('Invalid protocol');
+    }
+    
+    return url.href;
+  } catch {
+    throw new Error('Invalid URL');
+  }
+}
+
 export const getImageUrlBlob = async (url: string) => {
-  const res = await fetch(url);
+  const validatedUrl = buildValidatedImageUrl(url);
+  const res = await fetch(validatedUrl);
   const blob = await res.blob();
   return blob;
 };
