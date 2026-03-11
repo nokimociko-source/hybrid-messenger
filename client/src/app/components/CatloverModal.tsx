@@ -4,7 +4,8 @@ import { Icon, Icons, Spinner } from 'folds';
 interface CatloverModalProps {
     isOpen: boolean;
     title: string;
-    message: string;
+    message?: string;
+    children?: React.ReactNode;
     confirmLabel?: string;
     cancelLabel?: string;
     type?: 'confirm' | 'prompt' | 'alert';
@@ -20,6 +21,7 @@ export function CatloverModal({
     isOpen,
     title,
     message,
+    children,
     confirmLabel = 'ОК',
     cancelLabel = 'Отмена',
     type = 'confirm',
@@ -95,10 +97,14 @@ export function CatloverModal({
                     <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '600', color: '#fff' }}>{title}</h3>
                 </div>
 
-                {/* Message */}
-                <div style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '14px', lineHeight: '1.5' }}>
-                    {message}
-                </div>
+                {/* Message / Children */}
+                {message && (
+                    <div style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '14px', lineHeight: '1.5' }}>
+                        {message}
+                    </div>
+                )}
+
+                {children}
 
                 {/* Input Area (for prompt) */}
                 {type === 'prompt' && (

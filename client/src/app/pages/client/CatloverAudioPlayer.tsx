@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Icon, Icons, Spinner } from 'folds';
 import { decryptFile } from '../../utils/encryption';
 import { useEncryption } from '../../context/EncryptionContext';
+import { getPresignedViewUrl } from '../../utils/s3Client';
 
 type AudioPlayerProps = {
     src: string;
@@ -29,13 +30,23 @@ export function CatloverAudioPlayer({ src, roomId, version, encrypted }: AudioPl
         const loadAudio = async () => {
             if (!src) return;
 
-            if (src.startsWith('blob:') || !encrypted) {
-                setDecryptedSrc(src);
+            // Get signed URL for Wasabi
+            let audioUrl = src;
+            if (src.includes('wasabisys.com')) {
+                try {
+                    audioUrl = await getPresignedViewUrl(src);
+                } catch (err) {
+                    logger.error('Failed to get signed URL for audio:', err);
+                }
+            }
+
+            if (audioUrl.startsWith('blob:') || !encrypted) {
+                setDecryptedSrc(audioUrl);
                 return;
             }
 
             if (!roomId || version === undefined || !masterKey) {
-                setDecryptedSrc(src);
+                setDecryptedSrc(audioUrl);
                 return;
             }
 
@@ -45,7 +56,7 @@ export function CatloverAudioPlayer({ src, roomId, version, encrypted }: AudioPl
                 const key = await getRoomKey(roomId, version);
                 if (!key) throw new Error('Key not found');
 
-                const response = await fetch(src);
+                const response = await fetch(audioUrl);
                 const encryptedBlob = await response.blob();
                 const decryptedBlob = await decryptFile(encryptedBlob, key);
 

@@ -1,7 +1,7 @@
 import { logger } from '../utils/logger';
 // Хук для получения и кеширования предпросмотра ссылок
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { supabase } from '../../supabaseClient';
 import type { LinkPreview, LinkPreviewResponse } from '../types/mediaEnhancements';
 import {
@@ -253,8 +253,7 @@ export function useAutoLinkPreview(text: string, enabled = true) {
   const [preview, setPreview] = useState<LinkPreview | null>(null);
   const lastTextRef = useRef<string>('');
 
-  // Автоматически получаем превью при изменении текста
-  useState(() => {
+  useEffect(() => {
     if (!enabled || !text || text === lastTextRef.current) {
       return;
     }
@@ -275,7 +274,7 @@ export function useAutoLinkPreview(text: string, enabled = true) {
         setPreview(generateFallbackPreview(url));
       }
     });
-  });
+  }, [enabled, text, fetchPreviewFromText]);
 
   return {
     preview,

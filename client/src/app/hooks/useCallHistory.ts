@@ -33,7 +33,7 @@ export function useCallHistory(roomId?: string) {
           .from('call_history')
           .select(`
             *,
-            caller:users!call_history_caller_id_fkey(username, avatar_url)
+            caller:users!caller_id(username, avatar_url)
           `)
           .order('started_at', { ascending: false });
 

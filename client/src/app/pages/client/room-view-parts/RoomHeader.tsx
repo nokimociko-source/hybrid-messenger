@@ -7,19 +7,7 @@ import { useUserPresence } from '../../../hooks/useUserPresence';
 // Reusing HOME_PATH string literal or we can import from paths
 const HOME_PATH = '/'; // Will import properly if needed
 
-interface Room {
-    id: string;
-    name?: string;
-    type?: 'direct' | 'group' | 'channel';
-    is_direct?: boolean;
-    target_user_id?: string;
-    avatar_url?: string;
-    member_count?: number;
-    other_user?: {
-        username: string;
-        avatar_url?: string;
-    };
-}
+import { Room } from '../../../hooks/supabaseHelpers';
 
 interface RoomHeaderProps {
     room: Room | null;

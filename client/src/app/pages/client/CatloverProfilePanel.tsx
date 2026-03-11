@@ -8,8 +8,6 @@ import { supabase } from '../../../supabaseClient';
 import { HOME_PATH } from '../paths';
 import { SoundSettings } from '../../components/SoundSettings';
 import { E2ESettings } from '../../components/E2ESettings';
-import { GroupSettingsModal } from '../../components/GroupSettingsModal';
-import { ChannelSettingsModal } from '../../components/ChannelSettingsModal';
 import { CallHistory } from '../../components/CallHistory';
 import { usePolls } from '../../hooks/usePolls';
 import { useMuteSettings } from '../../hooks/useMuteSettings';
@@ -25,6 +23,8 @@ type CatloverProfilePanelProps = {
     onClose: () => void;
     currentUserId?: string;
     onDeleteMessage?: (id: string) => Promise<void>;
+    setShowChannelSettings: (show: boolean) => void;
+    setShowGroupSettings: (show: boolean) => void;
 };
 
 type RoomMember = {
@@ -62,7 +62,15 @@ const getIcon = (name: string) => {
     return (Icons as any)[name] || (Icons as any).Home || (Icons as any).Hash || (Icons as any).Message;
 };
 
-export function CatloverProfilePanel({ room, messages, onClose, currentUserId, onDeleteMessage }: CatloverProfilePanelProps) {
+export function CatloverProfilePanel({
+    room,
+    messages,
+    onClose,
+    currentUserId,
+    onDeleteMessage,
+    setShowChannelSettings,
+    setShowGroupSettings
+}: CatloverProfilePanelProps) {
     const [activeTab, setActiveTab] = useState<'media' | 'links' | 'audio' | 'files' | 'members'>('media');
     const [members, setMembers] = useState<RoomMember[]>([]);
     const [showAddMember, setShowAddMember] = useState(false);
@@ -75,8 +83,6 @@ export function CatloverProfilePanel({ room, messages, onClose, currentUserId, o
     const [showSoundSettings, setShowSoundSettings] = useState(false);
     const [showE2ESettings, setShowE2ESettings] = useState(false);
     const [showMuteMenu, setShowMuteMenu] = useState(false);
-    const [showGroupSettings, setShowGroupSettings] = useState(false);
-    const [showChannelSettings, setShowChannelSettings] = useState(false);
     const [showCallHistory, setShowCallHistory] = useState(false);
 
     // Меню настроек (три точки)
@@ -1624,30 +1630,7 @@ export function CatloverProfilePanel({ room, messages, onClose, currentUserId, o
                 )
             }
 
-            {
-                showGroupSettings && (
-                    <GroupSettingsModal
-                        room={room}
-                        onClose={() => setShowGroupSettings(false)}
-                        onUpdate={() => {
-                            // Room will be updated automatically via realtime subscription
-                            setShowGroupSettings(false);
-                        }}
-                    />
-                )
-            }
-
-            {
-                showChannelSettings && (
-                    <ChannelSettingsModal
-                        room={room}
-                        onClose={() => setShowChannelSettings(false)}
-                        onUpdate={() => {
-                            setShowChannelSettings(false);
-                        }}
-                    />
-                )
-            }
+            {/* Sub-modals moved to CatloverRoomView for proper stacking context */}
 
             {
                 showCallHistory && (

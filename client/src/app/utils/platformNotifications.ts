@@ -371,7 +371,9 @@ export async function vibrate(pattern: number | number[]): Promise<void> {
                 return;
             }
             navigator.vibrate(pattern);
-        } catch (e) { }
+        } catch (e) {
+            logger.debug('Vibration API not available', e);
+        }
     }
 }
 
@@ -410,7 +412,9 @@ export function stopCallNotification(): void {
                 return;
             }
             navigator.vibrate(0);
-        } catch (e) { }
+        } catch (e) {
+            logger.debug('Vibration API not available', e);
+        }
     }
 }
 
@@ -466,6 +470,8 @@ export function disposeNotifications(): void {
                 return;
             }
             navigator.vibrate(0);
-        } catch (e) { }
+        } catch (e) {
+            logger.debug('Vibration API not available', e);
+        }
     }
 }

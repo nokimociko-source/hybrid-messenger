@@ -55,7 +55,7 @@ export function BlockedUsersModal({ onClose }: BlockedUsersModalProps) {
                     id,
                     blocked_user_id,
                     blocked_at,
-                    user:users!blocked_users_blocked_user_id_fkey (
+                    user:users!blocked_user_id (
                         id,
                         username,
                         avatar_url

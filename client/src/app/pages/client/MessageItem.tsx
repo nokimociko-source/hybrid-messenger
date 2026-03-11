@@ -13,8 +13,8 @@ import { getMediaType } from '../../utils/chatUtils';
 import { highlightMentions } from '../../utils/mentionUtils';
 import { isAlbumMessage } from '../../utils/albumSerializer';
 import { EncryptedMedia } from '../../components/EncryptedMedia';
-import { getPresignedViewUrl } from '../../utils/s3Client';
 import { useEncryption } from '../../context/EncryptionContext';
+import { Poll, ChannelPermissions, LinkPreview } from './room-view-parts/MessageList.types';
 
 interface MessageItemProps {
     msg: Message;
@@ -36,9 +36,9 @@ interface MessageItemProps {
     onViewMedia: (url: string) => void;
     onVote: (pollId: string, optionId: string) => void;
     onUnvote: (pollId: string, optionId: string) => void;
-    polls: any[];
-    linkPreviews: Map<string, any>;
-    channelPermissions: any;
+    polls: Poll[];
+    linkPreviews: Map<string, LinkPreview>;
+    channelPermissions: ChannelPermissions;
     allMessages: Message[]; // Needed for album filtering and reply preview
     isSavedMessages: boolean;
     lastSelectedId: string | null;
@@ -81,6 +81,7 @@ export const MessageItem = React.memo<MessageItemProps>(({
     const isVideoFile = mediaType === 'video' && msg.file_name && msg.file_name.toLowerCase().endsWith('.mp4');
 
     const isEncryptedRoom = !!(room?.is_encrypted || isSavedMessages);
+    const shouldEncrypt = isEncryptedRoom && msg.key_version !== null && msg.key_version !== undefined;
 
     const handleContextMenu = (e: React.MouseEvent) => {
         if (isMultiSelectMode) {
@@ -409,7 +410,27 @@ export const MessageItem = React.memo<MessageItemProps>(({
                     ) : null
                 ) : (
                     msg.media_url && (
-                        (msg.file_name && !mediaType) ? (
+                        mediaType === 'audio' ? (
+                            <CatloverAudioPlayer
+                                src={msg.media_url}
+                                roomId={room?.id}
+                                version={msg.key_version}
+                                encrypted={shouldEncrypt}
+                            />
+                        ) : mediaType === 'image' ? (
+                            <div style={{ marginBottom: msg.content ? '8px' : '0', borderRadius: '12px', overflow: 'hidden', cursor: 'pointer' }}>
+                                <EncryptedMedia
+                                    url={msg.media_url}
+                                    type="image"
+                                    roomId={room?.id}
+                                    version={msg.key_version}
+                                    mimeType={msg.file_type}
+                                    encrypted={shouldEncrypt}
+                                    style={{ maxWidth: '100%', maxHeight: '400px', display: 'block' }}
+                                    onClick={(url) => onViewMedia(url)}
+                                />
+                            </div>
+                        ) : (msg.file_name && !isVideoFile) ? (
                             <div
                                 style={{
                                     marginBottom: msg.content ? '8px' : '0',
@@ -423,14 +444,7 @@ export const MessageItem = React.memo<MessageItemProps>(({
                                     cursor: 'pointer',
                                     transition: 'all 0.2s'
                                 }}
-                                onClick={async () => {
-                                    if (!msg.media_url) return;
-                                    let finalUrl = msg.media_url;
-                                    if (msg.media_url.includes('wasabisys.com')) {
-                                        finalUrl = await getPresignedViewUrl(msg.media_url);
-                                    }
-                                    window.open(finalUrl, '_blank');
-                                }}
+                                onClick={() => window.open(msg.media_url, '_blank')}
                             >
                                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00f2ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
@@ -443,13 +457,6 @@ export const MessageItem = React.memo<MessageItemProps>(({
                                     {msg.file_size && <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.6)' }}>{(msg.file_size / 1024).toFixed(1)} KB</div>}
                                 </div>
                             </div>
-                        ) : mediaType === 'audio' ? (
-                            <CatloverAudioPlayer
-                                src={msg.media_url}
-                                roomId={room?.id}
-                                version={msg.key_version}
-                                encrypted={isEncryptedRoom}
-                            />
                         ) : mediaType === 'video' ? (
                             <div
                                 style={{
@@ -470,7 +477,7 @@ export const MessageItem = React.memo<MessageItemProps>(({
                                     roomId={room?.id}
                                     version={msg.key_version}
                                     mimeType={msg.file_type}
-                                    encrypted={isEncryptedRoom}
+                                    encrypted={shouldEncrypt}
                                     controls={!isVideoCircle}
                                     style={{ width: '100%', height: isVideoCircle ? '100%' : 'auto', maxHeight: '400px', objectFit: isVideoCircle ? 'cover' : 'contain', display: 'block' }}
                                     onClick={(url) => onViewMedia(url)}
@@ -485,20 +492,7 @@ export const MessageItem = React.memo<MessageItemProps>(({
                                     </div>
                                 )}
                             </div>
-                        ) : (
-                            <div style={{ marginBottom: msg.content ? '8px' : '0', borderRadius: '12px', overflow: 'hidden', cursor: 'pointer' }}>
-                                <EncryptedMedia
-                                    url={msg.media_url}
-                                    type="image"
-                                    roomId={room?.id}
-                                    version={msg.key_version}
-                                    mimeType={msg.file_type}
-                                    encrypted={isEncryptedRoom}
-                                    style={{ maxWidth: '100%', maxHeight: '400px', display: 'block' }}
-                                    onClick={(url) => onViewMedia(url)}
-                                />
-                            </div>
-                        )
+                        ) : null
                     )
                 )}
 
@@ -565,13 +559,13 @@ export const MessageItem = React.memo<MessageItemProps>(({
                     zIndex: 2
                 }}>
                     {Object.entries(
-                        msg.reactions.reduce((acc: any, r: any) => {
+                        msg.reactions.reduce((acc: Record<string, { count: number; hasCurrentUser: boolean }>, r: any) => {
                             if (!acc[r.emoji]) acc[r.emoji] = { count: 0, hasCurrentUser: false };
                             acc[r.emoji].count += 1;
                             if (r.user_id === currentUser) acc[r.emoji].hasCurrentUser = true;
                             return acc;
                         }, {})
-                    ).map(([emoji, data]: [string, any]) => (
+                    ).map(([emoji, data]: [string, { count: number; hasCurrentUser: boolean }]) => (
                         <div
                             key={emoji}
                             onClick={() => onReaction(msg.id, emoji)}

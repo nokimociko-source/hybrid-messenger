@@ -581,3 +581,161 @@ export const ModalOverlay = style({
     zIndex: 99999,
     animation: 'fadeIn 0.2s ease-out'
 });
+export const ChatContainer = style({
+    display: 'flex',
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+    overflow: 'hidden',
+    vars: {
+        '--background-color': '#0d0d0d',
+    },
+    backgroundColor: 'var(--background-color)',
+});
+
+export const ChatMain = style({
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'relative',
+    zIndex: 1,
+});
+
+export const PinnedBanner = style({
+    padding: '8px 16px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    cursor: 'pointer',
+    zIndex: 50,
+    position: 'relative',
+    minHeight: '54px',
+    margin: '8px 16px',
+    borderRadius: '12px',
+    backgroundColor: 'rgba(20, 20, 20, 0.6)',
+    backdropFilter: 'blur(10px)',
+    border: '1px solid rgba(0, 242, 255, 0.1)',
+    transition: 'all 0.2s',
+    ':hover': {
+        backgroundColor: 'rgba(30, 30, 30, 0.8)',
+        borderColor: 'rgba(0, 242, 255, 0.3)',
+    }
+});
+
+export const ChatMessages = style({
+    flex: 1,
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+});
+
+export const JumpToUnread = style({
+    position: 'absolute',
+    bottom: '20px',
+    right: '25px',
+    backgroundColor: 'rgba(0, 242, 255, 0.9)',
+    color: '#000',
+    padding: '8px 16px',
+    borderRadius: '20px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    cursor: 'pointer',
+    zIndex: 100,
+    boxShadow: '0 4px 15px rgba(0, 242, 255, 0.4)',
+    fontWeight: 'bold',
+    fontSize: '13px',
+    transition: 'all 0.2s',
+    ':hover': {
+        transform: 'translateY(-2px)',
+        backgroundColor: '#00f2ff',
+    }
+});
+
+export const MultiSelectToolbar = style({
+    position: 'absolute',
+    top: '20px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: 'auto',
+    minWidth: '300px',
+    padding: '12px 24px',
+    backgroundColor: 'rgba(20, 20, 20, 0.95)',
+    backdropFilter: 'blur(20px)',
+    borderRadius: '16px',
+    border: '1px solid rgba(0, 242, 255, 0.3)',
+    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.8)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '24px',
+    zIndex: 1000,
+    animation: 'slideDown 0.3s ease-out',
+});
+
+export const MultiSelectInfo = style({
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    color: '#00f2ff',
+    fontWeight: 'bold',
+});
+
+export const MultiSelectActions = style({
+    display: 'flex',
+    gap: '12px',
+});
+
+export const DangerAction = style({
+    color: '#ff4d4d',
+});
+
+export const ActionToast = style({
+    position: 'absolute',
+    bottom: '100px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    backgroundColor: 'rgba(0, 242, 255, 0.9)',
+    color: '#000',
+    padding: '10px 20px',
+    borderRadius: '20px',
+    fontWeight: '600',
+    zIndex: 2000,
+    boxShadow: '0 4px 12px rgba(0, 242, 255, 0.4)',
+    animation: 'toastSlideUp 3s ease-in-out',
+});
+
+export const MediaOverlay = style({
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.95)',
+    zIndex: 9999,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    backdropFilter: 'blur(20px)',
+});
+
+export const MediaClose = style({
+    position: 'absolute',
+    top: '24px',
+    right: '24px',
+    color: '#fff',
+    cursor: 'pointer',
+    opacity: 0.7,
+    transition: 'opacity 0.2s',
+    ':hover': {
+        opacity: 1,
+    }
+});
+
+globalStyle(`${MediaOverlay} img, ${MediaOverlay} video`, {
+    maxWidth: '90vw',
+    maxHeight: '90vh',
+    borderRadius: '12px',
+    boxShadow: '0 0 50px rgba(0,0,0,0.5)',
+});

@@ -8,12 +8,14 @@ import { sanitizeEmbedHtml } from '../utils/sanitize';
 import './PreviewCard.css';
 
 interface PreviewCardProps {
-  preview: LinkPreview;
+  preview?: LinkPreview;
   onClick?: () => void;
   showEmbed?: boolean;
 }
 
 export function PreviewCard({ preview, onClick, showEmbed = false }: PreviewCardProps) {
+  if (!preview) return null;
+  
   const [imageError, setImageError] = useState(false);
   const [showEmbedContent, setShowEmbedContent] = useState(showEmbed);
 

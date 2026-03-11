@@ -28,6 +28,7 @@ import { SettingTile } from '../setting-tile';
 import { stopPropagation } from '../../utils/keyboard';
 import { useAsyncSearch, UseAsyncSearchOptions } from '../../hooks/useAsyncSearch';
 import { getCurrentUserId } from '../../utils/authCache';
+import { useContacts } from '../../hooks/useContacts';
 
 const makeHighlightRegex = (queries: string[]) => new RegExp(`(${queries.join('|')})`, 'gi');
 const highlightText = (regex: RegExp, texts: string[]) => {
@@ -107,7 +108,8 @@ export function AdditionalCreatorInput({
   }, []);
 
   const [menuCords, setMenuCords] = useState<RectCords>();
-  const directUsers: string[] = []; // TODO: populate from Supabase contacts
+  const { contacts } = useContacts();
+  const directUsers = contacts.map(c => c.id);
 
   const [validUserId, setValidUserId] = useState<string>();
   const filteredUsers = useMemo(

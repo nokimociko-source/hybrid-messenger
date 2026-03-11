@@ -320,7 +320,7 @@ export function ChannelSettingsModal({ room, onClose, onUpdate }: ChannelSetting
                                 boxShadow: '0 4px 12px rgba(0, 242, 255, 0.3)',
                                 zIndex: 1
                             }}>
-                                <Icon size="200" src={Icons.Phone} />
+                                <Icon size="200" src={Icons.Home} />
                             </div>
                         </CatloverAvatar>
                         <input
@@ -469,7 +469,7 @@ export function ChannelSettingsModal({ room, onClose, onUpdate }: ChannelSetting
                                 <div style={{ color: '#fff', fontSize: '14px', fontWeight: '500' }}>{isPublic ? 'Публичный' : 'Приватный'} канал</div>
                                 <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px' }}>{isPublic ? 'Все могут найти канал в поиске' : 'Вход только по ссылке'}</div>
                             </div>
-                            <Icon size="200" src={isPublic ? Icons.Lock : Icons.Lock} style={{ color: isPublic ? '#00f2ff' : 'rgba(255,255,255,0.4)' }} />
+                            <Icon size="200" src={isPublic ? Icons.Home : Icons.Lock} style={{ color: isPublic ? '#00f2ff' : 'rgba(255,255,255,0.4)' }} />
                         </div>
 
                         {/* E2EE Toggle */}
