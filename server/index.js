@@ -1,5 +1,10 @@
 require('dotenv').config();
 const express = require('express');
+<<<<<<< HEAD
+=======
+const helmet = require('helmet');
+const sqlite3 = require('sqlite3').verbose();
+>>>>>>> e98af14e9ca64225d19af00ad5024d84d5c2d971
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
@@ -11,6 +16,11 @@ const mediaRouter = require('./src/routes/media');
 const matrixRouter = require('./src/routes/matrix');
 
 const app = express();
+<<<<<<< HEAD
+=======
+app.use(helmet());
+const port = 3000;
+>>>>>>> e98af14e9ca64225d19af00ad5024d84d5c2d971
 
 // Security middleware
 app.use(helmet());
